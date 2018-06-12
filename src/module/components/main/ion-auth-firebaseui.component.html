@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-title>
+      Segments
+    </ion-title>
+  </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="authType">
+      <ion-segment-button value="login">
+        Sign in
+      </ion-segment-button>
+      <ion-segment-button value="register">
+        Register
+      </ion-segment-button>
+      <!--<ion-segment-button value="ducklings">-->
+      <!--Ducklings-->
+      <!--</ion-segment-button>-->
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div [ngSwitch]="authType">
+    <ion-list *ngSwitchCase="'login'">
+      <ion-item>
+        <ion-label floating>
+          <ion-icon name="mail" padding-right="5px"></ion-icon>
+          E-mail
+        </ion-label>
+        <ion-input type="text" clearInput></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>
+          <ion-icon name="lock" padding-right="5px"></ion-icon>
+          Password
+        </ion-label>
+        <ion-input type="password" clearInput></ion-input>
+      </ion-item>
+
+      <div padding>
+        <button ion-button color="primary" block>Log in</button>
+
+        <div padding>
+          <button clear ion-button small color="primary" block>Forgot password?</button>
+        </div>
+      </div>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'register'">
+      <ion-item>
+        <ion-label floating>
+          <ion-icon name="contact" padding-right="5px"></ion-icon>
+          Name
+        </ion-label>
+        <ion-input type="text" clearInput></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>
+          <ion-icon name="mail" padding-right="5px"></ion-icon>
+          E-mail
+        </ion-label>
+        <ion-input type="text" clearInput></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>
+          <ion-icon name="lock" padding-right="5px"></ion-icon>
+          Password
+        </ion-label>
+        <ion-input type="password" clearInput></ion-input>
+      </ion-item>
+
+      <div padding>
+        <button ion-button color="primary" block>Register</button>
+
+        <div padding>
+          <ion-buttons>
+            <button ion-button icon-only clear block>
+              <ion-icon name="finger-print"></ion-icon>
+            </button>
+          </ion-buttons>
+        </div>
+      </div>
+
+    </ion-list>
+
+  </div>
+</ion-content>
