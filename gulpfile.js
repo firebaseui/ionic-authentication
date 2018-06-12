@@ -84,10 +84,10 @@ const config = {
   allTs: 'src/**/!(*.spec).ts',
   allSass: 'src/**/*.+(scss|sass)',
   allHtml: 'src/**/*.html',
-  demoDir: 'demo/',
+  demoDir: 'demo-ionic/',
   buildDir: 'tmp/',
   outputDir: 'dist/',
-  outputDemoDir: 'demo/dist/browser/',
+  outputDemoDir: 'demo-ionic/dist/browser/',
   coverageDir: 'coverage/'
 };
 
@@ -271,7 +271,7 @@ gulp.task('build', ['clean'], (cb) => {
   runSequence('compile', 'npm-package', 'rollup-bundle', cb);
 });
 
-// Same as 'build' but without cleaning temp folders (to avoid breaking demo app, if currently being served)
+// Same as 'build' but without cleaning temp folders (to avoid breaking demo-ionic app, if currently being served)
 gulp.task('build-watch', (cb) => {
   runSequence('compile', 'test', 'npm-package', 'rollup-bundle', cb);
 });
@@ -500,27 +500,27 @@ const execDemoCmd = (args, opts) => {
   }
 };
 
-gulp.task('test:demo', () => {
+gulp.task('test:demo-ionic', () => {
   return execExternalCmd('npm', 'run test', {cwd: `${config.demoDir}`});
 });
 
-gulp.task('serve:demo', () => {
+gulp.task('serve:demo-ionic', () => {
   return execDemoCmd('serve --aot --proxy-config proxy.conf.json', {cwd: `${config.demoDir}`});
 });
 
-gulp.task('serve:demo-hmr', () => {
+gulp.task('serve:demo-ionic-hmr', () => {
   return execDemoCmd('serve --configuration hmr --aot --proxy-config proxy.conf.json', {cwd: `${config.demoDir}`});
 });
 
-gulp.task('build:demo', () => {
+gulp.task('build:demo-ionic', () => {
   return execDemoCmd(`build --preserve-symlinks --prod --base-href /ionic-authentication/ --deploy-url /ionic-authentication/`, {cwd: `${config.demoDir}`});
 });
 
-gulp.task('serve:demo-ssr', ['build:demo-ssr'], () => {
+gulp.task('serve:demo-ionic-ssr', ['build:demo-ssr'], () => {
   return execExternalCmd('node', 'dist/server.js', {cwd: `${config.demoDir}`});
 });
 
-gulp.task('build:demo-ssr', () => {
+gulp.task('build:demo-ionic-ssr', () => {
   return execDemoCmd(`build --preserve-symlinks --prod`, {cwd: `${config.demoDir}`})
     .then(() => execDemoCmd(`run @firebaseui/ionic-authentication-demo:server`, {cwd: `${config.demoDir}`}))
     .then(() => execCmd('webpack', '--config webpack.server.config.js --progress --colors', {cwd: `${config.demoDir}`}, `/${config.demoDir}`))
@@ -531,12 +531,12 @@ gulp.task('build:demo-ssr', () => {
     });
 });
 
-gulp.task('push:demo', () => {
+gulp.task('push:demo-ionic', () => {
   return execCmd('ngh', `--dir ${config.outputDemoDir} --message="chore(demo): :rocket: deploy new version"`);
 });
 
-gulp.task('deploy:demo', (cb) => {
-  runSequence('build:demo', 'build:doc', 'push:demo', cb);
+gulp.task('deploy:demo-ionic', (cb) => {
+  runSequence('build:demo-ionic', 'build:doc', 'push:demo-ionic', cb);
 });
 
 
@@ -668,7 +668,7 @@ gulp.task('release', (cb) => {
       'create-new-tag',
       'github-release',
       'npm-publish',
-      'deploy:demo',
+      'deploy:demo-ionic',
       (error) => {
         if (error) {
           fancyLog(acolors.red(error.message));
@@ -686,8 +686,8 @@ gulp.task('release', (cb) => {
 /////////////////////////////////////////////////////////////////////////////
 
 // Link 'dist' folder (create a local 'ng-scrollreveal' package that symlinks to it)
-// This way, we can have the demo project declare a dependency on 'ng-scrollreveal' (as it should)
-// and, thanks to 'npm link ng-scrollreveal' on demo project, be sure to always use the latest built
+// This way, we can have the demo-ionic project declare a dependency on 'ng-scrollreveal' (as it should)
+// and, thanks to 'npm link ng-scrollreveal' on demo-ionic project, be sure to always use the latest built
 // version of the library ( which is in 'dist/' folder)
 gulp.task('link', () => {
   return execExternalCmd('npm', 'link', {cwd: `${config.outputDir}`});
