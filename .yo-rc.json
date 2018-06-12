@@ -1,0 +1,41 @@
+{
+  "generator-ngx-library": {
+    "version": "6.0.0",
+    "authorName": "Anthony Nahas",
+    "authorEmail": "anthony.na@hotmail.de",
+    "githubUsername": "firebaseui",
+    "githubRepoName": "authentication",
+    "projectName": "@firebaseui/authentication",
+    "projectVersion": "0.0.1",
+    "projectDescription": "Ionic UI component for firebase authentication",
+    "projectKeywords": [
+      "ngx",
+      "ionic",
+      "library",
+      "UI",
+      "firebase",
+      "firebaseui",
+      "authentication"
+    ],
+    "ngVersion": "6.0.0",
+    "ngModules": [
+      "core",
+      "common"
+    ],
+    "otherDependencies": [],
+    "additionalPackageFiles": [
+      "assets"
+    ],
+    "dependenciesRange": "^",
+    "ngPrefix": "ion",
+    "testingFramework": "jest",
+    "useGreenkeeper": true,
+    "useCompodoc": true,
+    "enforceNgGitCommitMsg": true,
+    "exclusions": [
+      "config/karma.conf.js",
+      "config/webpack.test.js",
+      "config/karma-test-shim.js"
+    ]
+  }
+}
